@@ -1,0 +1,21 @@
+version: '2'
+services:
+  mysql:
+    build: ./mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin@123
+    volumes:
+      - db:/var/lib/mysql
+    tty: true
+    
+  php:
+    build: ./php
+    ports:
+      - '80:80'
+    volumes:
+      - ./html:/var/www/html
+    depends_on:
+      - mysql
+    
+volumes:
+  db:
